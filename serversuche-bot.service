@@ -1,0 +1,45 @@
+[Unit]
+Description=Serversuche Discord-Bot (Hetzner Serverbörse + Prepaid-Hoster)
+Documentation=file:///opt/serversuche/README.md
+After=network-online.target
+Wants=network-online.target
+
+# Neustart bei Absturz, aber nicht in einer Schleife bei kaputter Config:
+# 5 Fehlstarts in 5 Minuten stoppen den Dienst.
+# Gehoert seit systemd 229/230 in [Unit] - in [Service] wird es kommentarlos
+# ignoriert ("Unknown key name ... in section 'Service'").
+StartLimitBurst=5
+StartLimitIntervalSec=300
+
+[Service]
+Type=simple
+User=serversuche
+Group=serversuche
+WorkingDirectory=/opt/serversuche
+ExecStart=/opt/serversuche/.venv/bin/python /opt/serversuche/bot.py
+
+Restart=on-failure
+RestartSec=30
+
+# Token steht in .env und wird von bot.py selbst gelesen.
+# Datei sollte 0600 und dem Dienstnutzer gehören.
+Environment=PYTHONUNBUFFERED=1
+
+# Absicherung: der Bot braucht nur Netz und sein eigenes Verzeichnis.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/serversuche
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=true
+MemoryMax=256M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=serversuche
+
+[Install]
+WantedBy=multi-user.target

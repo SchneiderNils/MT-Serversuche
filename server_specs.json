@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "generated_for": "All the Mods 11 (NeoForge) dedicated server",
+  "notes": [
+    "Alle cpu_single_thread_score-Werte sind PassMark-Single-Thread-Näherungswerte.",
+    "Sie dienen nur dem Ranking untereinander, nicht als absolute Messgröße.",
+    "Minecraft ist auf dem Haupt-Tick single-threaded: Boost-Takt und L3-Cache",
+    "sind wichtiger als Kernanzahl. Kernanzahl deckt GC, Chunk-Gen und Netz-IO ab."
+  ],
+  "workload": {
+    "modpack": "All the Mods 11",
+    "loader": "NeoForge",
+    "java_version": 21,
+    "gc": "G1GC (Aikar's Flags)",
+    "extra_services_on_host": [
+      "PostgreSQL",
+      "Dashboard-Container",
+      "Reverse Proxy"
+    ],
+    "extra_services_ram_gb": 4,
+    "extra_services_cores": 2
+  },
+
+  "tiers": {
+    "minimum": {
+      "rank": 1,
+      "label": "Läuft, aber mit spürbaren Tick-Spikes",
+      "expected_players": 5,
+      "jvm_heap_gb": 8,
+      "ram_total_gb_min": 32,
+      "cpu_cores_min": 6,
+      "cpu_threads_min": 12,
+      "cpu_boost_ghz_min": 4.2,
+      "cpu_single_thread_score_min": 2500,
+      "cpu_l3_cache_mb_min": 12,
+      "storage_class_min": "ssd",
+      "storage_gb_min": 240,
+      "price_eur_month_max": 40,
+      "example_cpus": ["Core i9-9900K", "Ryzen 7 3700X", "XEON E-2276G"]
+    },
+    "recommended": {
+      "rank": 2,
+      "label": "Stabile 20 TPS für eine normale Gruppe",
+      "expected_players": 15,
+      "jvm_heap_gb": 12,
+      "ram_total_gb_min": 32,
+      "cpu_cores_min": 6,
+      "cpu_threads_min": 12,
+      "cpu_boost_ghz_min": 4.6,
+      "cpu_single_thread_score_min": 3300,
+      "cpu_l3_cache_mb_min": 18,
+      "storage_class_min": "nvme",
+      "storage_gb_min": 480,
+      "price_eur_month_max": 60,
+      "example_cpus": ["Core i5-13500", "Core i5-12500", "Core i9-12900K"]
+    },
+    "best": {
+      "rank": 3,
+      "label": "Reserve auch bei großen Basen und hoher Simulation Distance",
+      "expected_players": 25,
+      "jvm_heap_gb": 16,
+      "ram_total_gb_min": 64,
+      "cpu_cores_min": 8,
+      "cpu_threads_min": 16,
+      "cpu_boost_ghz_min": 5.0,
+      "cpu_single_thread_score_min": 4000,
+      "cpu_l3_cache_mb_min": 32,
+      "storage_class_min": "nvme",
+      "storage_gb_min": 512,
+      "price_eur_month_max": 120,
+      "example_cpus": ["Ryzen 7 7700", "Core i9-13900", "Ryzen 7 9800X3D"]
+    }
+  },
+
+  "storage_classes": {
+    "hdd": {
+      "rank": 0,
+      "acceptable": false,
+      "reason": "Chunk-IO auf rotierenden Platten erzeugt Tick-Spikes, die sich nicht wegkonfigurieren lassen."
+    },
+    "ssd": { "rank": 1, "acceptable": true },
+    "nvme": { "rank": 2, "acceptable": true }
+  },
+
+  "storage_match_patterns": {
+    "nvme": ["nvme", "gen4", "gen3", "dc-edition"],
+    "ssd": ["ssd", "sata ssd"],
+    "hdd": ["hdd", "sata 2", "sata 3", "sata 4", "sata 6", "sata 8", "enterprise hdd", "sas"]
+  },
+
+  "hard_disqualifiers": {
+    "storage_only_hdd": true,
+    "cpu_single_thread_score_below": 2400,
+    "ram_total_gb_below": 32,
+    "cpu_boost_ghz_below": 4.0
+  },
+
+  "cpu_reference": [
+    { "match": ["ryzen 9 9950x3d"],   "name": "AMD Ryzen 9 9950X3D",   "cores": 16, "threads": 32, "boost_ghz": 5.7, "l3_mb": 128, "single_thread_score": 4600, "hybrid": false, "tier": "best" },
+    { "match": ["ryzen 7 9800x3d"],   "name": "AMD Ryzen 7 9800X3D",   "cores": 8,  "threads": 16, "boost_ghz": 5.2, "l3_mb": 96,  "single_thread_score": 4400, "hybrid": false, "tier": "best" },
+    { "match": ["ryzen 9 7950x3d"],   "name": "AMD Ryzen 9 7950X3D",   "cores": 16, "threads": 32, "boost_ghz": 5.7, "l3_mb": 128, "single_thread_score": 4300, "hybrid": false, "tier": "best" },
+    { "match": ["i9-13900", "i9 13900"], "name": "Intel Core i9-13900", "cores": 24, "threads": 32, "boost_ghz": 5.6, "l3_mb": 36, "single_thread_score": 4300, "hybrid": true,  "p_cores": 8, "tier": "best" },
+    { "match": ["ryzen 7 7700"],      "name": "AMD Ryzen 7 7700",      "cores": 8,  "threads": 16, "boost_ghz": 5.3, "l3_mb": 32,  "single_thread_score": 4100, "hybrid": false, "tier": "best" },
+    { "match": ["i9-12900"],          "name": "Intel Core i9-12900K",  "cores": 16, "threads": 24, "boost_ghz": 5.2, "l3_mb": 30,  "single_thread_score": 4050, "hybrid": true,  "p_cores": 8, "tier": "best" },
+    { "match": ["i5-13500", "i5 13500"], "name": "Intel Core i5-13500", "cores": 14, "threads": 20, "boost_ghz": 4.8, "l3_mb": 24, "single_thread_score": 3700, "hybrid": true,  "p_cores": 6, "tier": "recommended" },
+    { "match": ["i5-12500", "i5 12500"], "name": "Intel Core i5-12500", "cores": 6,  "threads": 12, "boost_ghz": 4.6, "l3_mb": 18, "single_thread_score": 3400, "hybrid": false, "tier": "recommended" },
+    { "match": ["i9-9900k"],          "name": "Intel Core i9-9900K",   "cores": 8,  "threads": 16, "boost_ghz": 5.0, "l3_mb": 16,  "single_thread_score": 2900, "hybrid": false, "tier": "minimum" },
+    { "match": ["e-2276g", "e2276g"], "name": "Intel Xeon E-2276G",    "cores": 6,  "threads": 12, "boost_ghz": 4.9, "l3_mb": 12,  "single_thread_score": 2850, "hybrid": false, "tier": "minimum" },
+    { "match": ["ryzen 7 3700x"],     "name": "AMD Ryzen 7 3700X",     "cores": 8,  "threads": 16, "boost_ghz": 4.4, "l3_mb": 32,  "single_thread_score": 2700, "hybrid": false, "tier": "minimum" },
+    { "match": ["e-2176g", "e2176g"], "name": "Intel Xeon E-2176G",    "cores": 6,  "threads": 12, "boost_ghz": 4.7, "l3_mb": 12,  "single_thread_score": 2700, "hybrid": false, "tier": "minimum" },
+    { "match": ["ryzen 9 3900"],      "name": "AMD Ryzen 9 3900",      "cores": 12, "threads": 24, "boost_ghz": 4.3, "l3_mb": 64,  "single_thread_score": 2700, "hybrid": false, "tier": "minimum" },
+    { "match": ["i7-8700"],           "name": "Intel Core i7-8700",    "cores": 6,  "threads": 12, "boost_ghz": 4.6, "l3_mb": 12,  "single_thread_score": 2600, "hybrid": false, "tier": "minimum" },
+    { "match": ["ryzen 5 3600"],      "name": "AMD Ryzen 5 3600",      "cores": 6,  "threads": 12, "boost_ghz": 4.2, "l3_mb": 32,  "single_thread_score": 2600, "hybrid": false, "tier": "minimum" },
+    { "match": ["xeon gold 5412u"],   "name": "Intel Xeon Gold 5412U", "cores": 24, "threads": 48, "boost_ghz": 3.9, "l3_mb": 45,  "single_thread_score": 2600, "hybrid": false, "tier": "reject" },
+    { "match": ["w-2295"],            "name": "Intel Xeon W-2295",     "cores": 18, "threads": 36, "boost_ghz": 4.6, "l3_mb": 24,  "single_thread_score": 2600, "hybrid": false, "tier": "reject" },
+    { "match": ["w-2145"],            "name": "Intel Xeon W-2145",     "cores": 8,  "threads": 16, "boost_ghz": 4.5, "l3_mb": 11,  "single_thread_score": 2500, "hybrid": false, "tier": "reject" },
+    { "match": ["e3-1275v6", "e3-1275 v6"], "name": "Intel Xeon E3-1275v6", "cores": 4, "threads": 8, "boost_ghz": 4.2, "l3_mb": 8, "single_thread_score": 2450, "hybrid": false, "tier": "reject" },
+    { "match": ["epyc 7543p"],        "name": "AMD EPYC 7543P",        "cores": 32, "threads": 64, "boost_ghz": 3.7, "l3_mb": 256, "single_thread_score": 2400, "hybrid": false, "tier": "reject" },
+    { "match": ["i7-7700"],           "name": "Intel Core i7-7700",    "cores": 4,  "threads": 8,  "boost_ghz": 4.2, "l3_mb": 8,   "single_thread_score": 2400, "hybrid": false, "tier": "reject" },
+    { "match": ["e3-1275v5", "e3-1275 v5"], "name": "Intel Xeon E3-1275v5", "cores": 4, "threads": 8, "boost_ghz": 4.0, "l3_mb": 8, "single_thread_score": 2300, "hybrid": false, "tier": "reject" },
+    { "match": ["threadripper 2950x"],"name": "AMD Threadripper 2950X","cores": 16, "threads": 32, "boost_ghz": 4.4, "l3_mb": 32,  "single_thread_score": 2250, "hybrid": false, "tier": "reject", "note": "NUMA-Topologie schadet zusätzlich" },
+    { "match": ["i7-6700"],           "name": "Intel Core i7-6700",    "cores": 4,  "threads": 8,  "boost_ghz": 4.0, "l3_mb": 8,   "single_thread_score": 2200, "hybrid": false, "tier": "reject" },
+    { "match": ["e5-1650v3", "e5-1650 v3"], "name": "Intel Xeon E5-1650v3", "cores": 6, "threads": 12, "boost_ghz": 3.8, "l3_mb": 15, "single_thread_score": 2100, "hybrid": false, "tier": "reject" },
+    { "match": ["epyc 7502p"],        "name": "AMD EPYC 7502P",        "cores": 32, "threads": 64, "boost_ghz": 3.35,"l3_mb": 128, "single_thread_score": 2000, "hybrid": false, "tier": "reject" },
+    { "match": ["ryzen 7 1700x"],     "name": "AMD Ryzen 7 1700X",     "cores": 8,  "threads": 16, "boost_ghz": 3.8, "l3_mb": 16,  "single_thread_score": 1900, "hybrid": false, "tier": "reject" },
+    { "match": ["epyc 7401p"],        "name": "AMD EPYC 7401P",        "cores": 24, "threads": 48, "boost_ghz": 3.0, "l3_mb": 64,  "single_thread_score": 1750, "hybrid": false, "tier": "reject" }
+  ],
+
+  "scoring_weights": {
+    "single_thread_score": 0.55,
+    "l3_cache_mb": 0.20,
+    "storage_class": 0.15,
+    "ram_total_gb": 0.10
+  },
+
+  "alert_profile": {
+    "description": "Empfohlener Filter für den Scraper",
+    "price_eur_month_max": 60.0,
+    "ram_total_gb_min": 32,
+    "storage_class_min": "nvme",
+    "cpu_single_thread_score_min": 2900,
+    "require_setup_fee_zero": true
+  }
+}

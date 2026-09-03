@@ -1,0 +1,3 @@
+# Nur der Bot braucht eine Abhängigkeit.
+# serversuche.py läuft weiterhin mit reiner Standardbibliothek.
+discord.py>=2.3,<3
